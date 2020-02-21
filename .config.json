@@ -1,0 +1,16 @@
+{
+  "API_ENV": "local",
+  "NODE_PORT": 3130,
+  "MONGO_DSN": "mongodb://192.168.99.100:37017/dcs",
+  "MONGO_OPT": {
+    "poolSize": 5,
+    "useNewUrlParser": true
+  },
+  "RABBITMQ_HOST": "192.168.99.100",
+  "RABBITMQ_PORT": 5772,
+  "RABBITMQ_USERNAME": "",
+  "RABBITMQ_PASSWORD": "",
+  "RABBITMQ_VHOST": "/",
+  "EMAIL_IDENTIFIER_VALIDITY": 10,
+  "PHONE_IDENTIFIER_VALIDITY": 10
+}
