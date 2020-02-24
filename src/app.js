@@ -3,6 +3,7 @@ const http = require('http');
 const morgan = require('morgan');
 const helmet = require('helmet');
 const bodyParser = require('body-parser');
+const swaggerUi = require('swagger-ui-express');
 require('express-async-errors');
 
 // const { initiateRabbitMQ } = require('./queues/connection/rabbitmq');
@@ -15,6 +16,9 @@ const routerHealth = require('./route/health-check');
 const routerStudent = require('./route/v1/student');
 
 const { config } = require('./helper/config');
+
+// swagger
+const swaggerDocument = require('./swagger.json');
 
 // middle-wares
 const ConfigLoaderMiddleware = require('./middlewares/config-loader');
@@ -47,6 +51,9 @@ const app = express();
         app.use(morgan('tiny'));
         app.use(bodyParser.urlencoded({ extended: true }));
         app.use(bodyParser.json({ limit: '5mb' }));
+
+        // swagger ui
+        app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
         // defining routes inside router or further distribution based on modules
         app.use('/', routerHealth);

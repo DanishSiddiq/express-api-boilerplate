@@ -1,0 +1,168 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Room service Mapper"
+  },
+  "basePath": "/api",
+  "schemes": ["http", "https"],
+  "paths": {
+    "/status": {
+      "get": {
+        "tags": ["Misc"],
+        "summary": "check status of the API",
+        "responses": {
+          "200": {
+            "description": "api status",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "description": "api status"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/student": {
+      "post": {
+        "tags": ["Student Create"],
+        "summary": "create student API",
+        "parameters": [
+          {
+            "name": "payload",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "required": ["email", "registrationNumber"],
+              "properties": {
+                "firstName": {
+                  "type": "string",
+                  "example": "danish"
+                },
+                "lastName": {
+                  "type": "string",
+                  "example": "siddiq"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "danish.siddiq@email.com"
+                },
+                "registrationNumber": {
+                  "type": "number",
+                  "example": 123456
+                },
+                "isEnabled": {
+                  "type": "boolean",
+                  "example": true
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "_id": {
+                  "type": "string"
+                },
+                "firstName": {
+                  "type": "string",
+                  "example": "danish"
+                },
+                "lastName": {
+                  "type": "string",
+                  "example": "siddiq"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "danish.siddiq@email.com"
+                },
+                "registrationNumber": {
+                  "type": "number",
+                  "example": 123456
+                },
+                "isEnabled": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "createdAt": {
+                  "type": "string",
+                  "example": "2019-01-02T00:00:00Z"
+                },
+                "updatedAt": {
+                  "type": "string",
+                  "example": "2019-01-02T00:00:00Z"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "error mongo model validation",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Express boilerplate – details"
+                },
+                "additionalData": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "number",
+                      "example": 422
+                    },
+                    "httpStatus": {
+                      "type": "number",
+                      "example": 422
+                    },
+                    "requestUrl": {
+                      "type": "string",
+                      "example": "/api/v1/student"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "error mongo insert",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Express boilerplate – details"
+                },
+                "additionalData": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "number",
+                      "example": 500
+                    },
+                    "httpStatus": {
+                      "type": "number",
+                      "example": 500
+                    },
+                    "requestUrl": {
+                      "type": "string",
+                      "example": "/api/v1/student"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
