@@ -47,5 +47,24 @@ const findOne = async (request, response) => {
     }
 };
 
-module.exports = { findOne, createOne, updateOne };
+/**
+ *
+ * @param request
+ * @param response
+ * @returns {Promise<void>}
+ */
+const deleteOne = async (request, response) => {
+    try {
+        const requestParams = { ...request.body, ...request.query, ...request.params };
+        const result = await studentService.deleteOne(requestParams);
+        const isSuccess = (result.n === 1 && result.ok === 1);
+        response
+            .status(isSuccess ? HttpStatus.OK : HttpStatus.BAD_REQUEST)
+            .json({ isSuccess });
+    } catch (e) {
+        throw e;
+    }
+};
+
+module.exports = { findOne, createOne, updateOne, deleteOne };
 

@@ -36,7 +36,7 @@ http://localhost:3130/version
 ```
 http://localhost:3130/api/v1/student
 ```
-**Sample Body**
+**Body:**
 ######
 ```
 {
@@ -57,6 +57,12 @@ http://localhost:3130/api/v1/student/:id
 * **Put:**
 ```
 http://localhost:3130/api/v1/student/:id?firstName=danish1&lastName=siddiq1
+```
+
+#
+* **Delete:**
+```
+http://localhost:3130/api/v1/student/:id
 ```
 
 #

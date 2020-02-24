@@ -44,6 +44,17 @@ class Repository {
     async findAll (whereClause = {}, projection = {}) {
         return this.model.findAll(whereClause, projection);
     }
+
+    /**
+     *
+     * @param whereClause
+     * @param projection
+     * @returns {Promise<Promise<*>|Query|void|Promise<*|undefined>|Promise<*>>}
+     */
+    async deleteOne(whereClause = {}, projection = {}) {
+        whereClause = (whereClause && whereClause._id) ? { ...whereClause, _id: ObjectId(whereClause._id) } : whereClause;
+        return this.model.deleteOne(whereClause);
+    };
 }
 
 module.exports = Repository;

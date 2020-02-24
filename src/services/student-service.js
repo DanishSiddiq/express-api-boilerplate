@@ -33,6 +33,16 @@ const findOne = async (whereClause, projection = {}) => {
     return repository.findOne({ ...whereClause, _id: whereClause._id }, projection);
 };
 
-module.exports = { createOne, updateOne, findOne };
+/**
+ *
+ * @param whereClause
+ * @returns {Promise<Promise<*>|Query|void|Promise<*|undefined>>}
+ */
+const deleteOne = async (whereClause) => {
+    const repository    = new Repository(studentModel);
+    return repository.deleteOne({ ...whereClause, _id: whereClause._id });
+};
+
+module.exports = { createOne, updateOne, findOne, deleteOne };
 
 
