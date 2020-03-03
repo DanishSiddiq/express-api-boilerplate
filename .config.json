@@ -4,7 +4,9 @@
   "MONGO_DSN": "mongodb://192.168.99.100:37017/dcs",
   "MONGO_OPT": {
     "poolSize": 5,
-    "useNewUrlParser": true
+    "native_parser": true,
+    "useNewUrlParser": true,
+    "useUnifiedTopology": true
   },
   "RABBITMQ_HOST": "192.168.99.100",
   "RABBITMQ_PORT": 5772,
