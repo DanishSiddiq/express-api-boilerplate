@@ -1,5 +1,5 @@
-const HttpStatus = require('http-status-codes/index');
-const studentService = require('../services/student-service');
+const HttpStatus = require('http-status-codes');
+const studentService = require('../../services/student-service');
 
 /**
  *

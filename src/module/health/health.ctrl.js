@@ -1,8 +1,8 @@
 const path = require('path');
 const fs = require('fs');
 const HttpStatus = require('http-status-codes');
-const { logErrDetails } = require('../helper/logger');
-const { checkHealthMongoDb } = require('../database-connections/db.mongo');
+const { logErrDetails } = require('../../helper/logger');
+const { checkHealthMongoDb } = require('../../database-connections/db.mongo');
 
 let version = '';
 
@@ -16,7 +16,7 @@ const readVersion = () => {
   }
 
   // Read the version configuration from bumpversion config file
-  const versionFilePath = path.join(__dirname, '../../.bumpversion.cfg');
+  const versionFilePath = path.join(__dirname, '../../../.bumpversion.cfg');
   const configContent = fs.readFileSync(versionFilePath, 'utf8');
 
   // extract the `current_version = {}` value form the file

@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const studentController = require('../../controllers/student.ctrl');
+const studentController = require('./student.ctrl');
 
 const router = Router();
 router.post('/api/v1/student', studentController.createOne);
