@@ -1,81 +1,60 @@
-const express = require('express');
-const http = require('http');
-const morgan = require('morgan');
-const helmet = require('helmet');
-const bodyParser = require('body-parser');
-const swaggerUi = require('swagger-ui-express');
 require('express-async-errors');
+const express       = require('express');
+const morgan        = require('morgan');
+const helmet        = require('helmet');
+const bodyParser    = require('body-parser');
+const swaggerUi     = require('swagger-ui-express');
 
-// const { initiateRabbitMQ } = require('./queues/connection/rabbitmq');
+// mongodb
 const { mongoDbConnect } = require('./database-connections/db.mongo');
-const { handleExit, handleUncaughtErrors } = require('./helper/fatal');
-const { logInfoDetails, logErrDetails } = require('./helper/logger');
-
-// routers file
-const routerHealth = require('./route/health-check');
-const routerStudent = require('./route/v1/student');
-
-const { config } = require('./helper/config');
 
 // swagger
-const swaggerDocument = require('./swagger.json');
+const swaggerDocument    = require('./swagger.json');
+
+// routers file
+const routerHealth  = require('./route/health-check');
+const routerStudent = require('./route/v1/student');
 
 // middle-wares
 const ConfigLoaderMiddleware = require('./middlewares/config-loader');
 const RouteNotFoundMiddleware = require('./middlewares/not-found');
 const ExceptionHandlerMiddleware = require('./middlewares/exception-handler');
 
+// rabbitmq if required producer & listener
+// const { initiateRabbitMQ } = require('./queues/connection/rabbitmq');
+
+
 const app = express();
 
-(async function() {
-    try {
+// Connect to multiple DB's
+if (process.env.NODE_ENV !== 'test') {
 
-        handleUncaughtErrors();
-        handleExit();
+    // setup connections
+    mongoDbConnect('DCS');
 
-        // Connect to multiple DB's
-        if (process.env.NODE_ENV !== 'test') {
+    // queue listener
+    // initiateRabbitMQ();
+}
 
-            // setup multiple connections
-            mongoDbConnect('DCS');
+// helmet for security purpose
+app.use(helmet());
+app.disable('x-powered-by');
 
-            // queue listener
-            // initiateRabbitMQ();
-        }
+// logger
+app.use(morgan('tiny'));
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json({ limit: '5mb' }));
 
-        // helmet for security purpose
-        app.use(helmet());
-        app.disable('x-powered-by');
+// swagger ui
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
-        // logger
-        app.use(morgan('tiny'));
-        app.use(bodyParser.urlencoded({ extended: true }));
-        app.use(bodyParser.json({ limit: '5mb' }));
+// defining routes inside router or further distribution based on modules
+app.use('/', routerHealth);
+app.use('/', ConfigLoaderMiddleware, routerStudent);
 
-        // swagger ui
-        app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-
-        // defining routes inside router or further distribution based on modules
-        app.use('/', routerHealth);
-        app.use('/', ConfigLoaderMiddleware, routerStudent);
-
-        // RouteNotFound and ExceptionHandler middle-wares must
-        // be the last ones to be registered
-        app.use(RouteNotFoundMiddleware);
-        app.use(ExceptionHandlerMiddleware);
-
-        app.server = http.createServer(app);
-        const APP_PORT = config.get('NODE_PORT', 3000);
-        app.server.listen(APP_PORT, () => {
-            logInfoDetails({message: `Express boilerplate app listening on port:${APP_PORT}`});
-        });
-    } catch (err) {
-        logErrDetails({ message: 'Express boilerplate server setup failed', error: err });
-        process.exit(1);
-    }
-})();
-
-
+// RouteNotFound and ExceptionHandler middle-wares must
+// be the last ones to be registered
+app.use(RouteNotFoundMiddleware);
+app.use(ExceptionHandlerMiddleware);
 
 module.exports = app;
-

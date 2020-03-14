@@ -4,8 +4,8 @@
   "description": "express framework based boilerplate using single database",
   "main": "app.js",
   "scripts": {
-    "dev": "NODE_ENV=dev nodemon ./src/app.js",
-    "start": "node ./src/app.js",
+    "dev": "NODE_ENV=dev nodemon ./src/index.js",
+    "start": "node ./src/index.js",
     "test": "jest"
   },
   "repository": {

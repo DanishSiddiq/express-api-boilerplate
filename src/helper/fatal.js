@@ -1,4 +1,5 @@
 const { mongoDbDisconnect } = require('../database-connections/db.mongo');
+const { logErrDetails }     = require('./logger');
 
 /**
  * Makes sure that the process doesn't shut down
