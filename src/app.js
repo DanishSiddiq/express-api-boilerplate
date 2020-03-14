@@ -36,25 +36,16 @@ if (process.env.NODE_ENV !== 'test') {
     // initiateRabbitMQ();
 }
 
-// helmet for security purpose
-app.use(helmet());
-app.disable('x-powered-by');
-
-// logger
-app.use(morgan('tiny'));
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json({ limit: '5mb' }));
-
-// swagger ui
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-
-// defining routes inside router or further distribution based on modules
-app.use('/', routerHealth);
-app.use('/', ConfigLoaderMiddleware, routerStudent);
-
-// RouteNotFound and ExceptionHandler middle-wares must
-// be the last ones to be registered
-app.use(RouteNotFoundMiddleware);
-app.use(ExceptionHandlerMiddleware);
+app
+  .disable('x-powered-by')
+  .use(helmet()) // helmet for security purpose
+  .use(morgan('tiny')) // for logging
+  .use(bodyParser.urlencoded({ extended: true }))
+  .use(bodyParser.json({ limit: '5mb' }))
+  .use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument)) // swagger ui
+  .use('/', routerHealth)
+  .use('/', ConfigLoaderMiddleware, routerStudent)
+  .use(RouteNotFoundMiddleware) // RouteNotFound middle-wares must
+  .use(ExceptionHandlerMiddleware); // ExceptionHandler will be the last one to be registered
 
 module.exports = app;
