@@ -68,5 +68,5 @@ http://localhost:3130/api/v1/student/:id
 #
 **Improvements:**
 
-It is still in progress, feel free to add further features into it
+Feel free to add further features into it
 
