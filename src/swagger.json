@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "version": "1.0.0",
-    "title": "Room service Mapper"
+    "title": "Express API Boilerplate"
   },
   "basePath": "/api",
   "schemes": ["http", "https"],
