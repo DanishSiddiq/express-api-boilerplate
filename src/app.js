@@ -12,8 +12,8 @@ const { mongoDbConnect } = require('./database-connections/db.mongo');
 const swaggerDocument    = require('./swagger.json');
 
 // routers file
-const routerHealth  = require('./module/health/health.route');
-const routerStudent = require('./module/student/student.route');
+const routerHealth  = require('./modules/health/health.route');
+const routerStudent = require('./modules/student/student.route');
 
 // middle-wares
 const ConfigLoaderMiddleware = require('./middlewares/config-loader');
