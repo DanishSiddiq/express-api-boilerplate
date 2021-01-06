@@ -26,7 +26,7 @@
   "homepage": "https://github.com/DanishSiddiq/express-api-boilerplate#readme",
   "dependencies": {
     "amqplib": "0.5.3",
-    "axios": "^0.20.0",
+    "axios": "^0.21.1",
     "body-parser": "^1.19.0",
     "express": "^4.17.1",
     "express-api-problem": "^1.2.6",
