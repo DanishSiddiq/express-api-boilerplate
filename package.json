@@ -28,7 +28,7 @@
     "amqplib": "0.5.3",
     "axios": "^0.20.0",
     "body-parser": "^1.19.0",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "express-api-problem": "^1.2.6",
     "express-async-errors": "^3.1.1",
     "helmet": "^3.21.2",
